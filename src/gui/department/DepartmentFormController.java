@@ -1,4 +1,4 @@
-package gui;
+package gui.department;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -49,6 +49,7 @@ public class DepartmentFormController implements Initializable {
 			throw new IllegalStateException("Service was null");
 		}
 		try {
+			emptyErrorMessages();
 			entity = getFormData();
 			service.saveOrUpdate(entity);
 			notifyDataChangeListeners();
@@ -73,7 +74,7 @@ public class DepartmentFormController implements Initializable {
 		ValidateException exception = new ValidateException("Validation error");
 
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
-		if (txtName == null || txtName.getText().trim().equals("")) {
+		if (txtName.getText() == null || txtName.getText().trim().equals("")) {
 			exception.addError("name", "Field can't be empty");
 		}
 		obj.setName(txtName.getText());
@@ -123,6 +124,10 @@ public class DepartmentFormController implements Initializable {
 		if (fields.contains("name")) {
 			labelErrorName.setText(errors.get("name"));
 		}
+	}
+	
+	private void emptyErrorMessages() {
+		labelErrorName.setText(null);
 	}
 
 }
